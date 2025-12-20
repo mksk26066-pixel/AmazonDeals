@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - GadgetsPlus</title>
+    <style>
+        :root { --primary: #131921; --secondary: #febd69; --accent: #232f3e; --bg-color: #eaeded; }
+        body { font-family: 'Amazon Ember', Arial, sans-serif; background: var(--bg-color); margin: 0; display: flex; flex-direction: column; min-height: 100vh; }
+        
+        header { background: var(--primary); color: white; padding: 15px; position: sticky; top: 0; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .nav-wrapper { max-width: 1200px; margin: auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 22px; font-weight: 700; text-decoration: none; color: white; }
+        .logo span { color: var(--secondary); font-style: italic; }
+        
+        footer { background: var(--accent); color: white; padding: 20px; text-align: center; margin-top: auto; }
+        .footer-links a { color: #ddd; text-decoration: none; margin: 0 10px; font-size: 13px; }
+
+        .content-box {
+            background: white;
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        h1 { color: var(--primary); text-align: center; }
+        .info-text { text-align: center; color: #555; margin-bottom: 30px; }
+        
+        .contact-method {
+            background: #f7f7f7;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            border: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+        .email-link { color: #007185; font-weight: bold; text-decoration: none; font-size: 18px; }
+        .email-link:hover { text-decoration: underline; color: #C7511F; }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-wrapper">
+            <a href="index.html" class="logo">Gadgets<span>Plus</span></a>
+        </div>
+    </header>
+
+    <div class="content-box">
+        <h1>Contact Us</h1>
+        <p class="info-text">Have a question about a product? Want to report a broken link? Or just want to say hi? We'd love to hear from you.</p>
+
+        <div class="contact-method">
+            <p style="margin:0; font-size:14px; color:#555;">Shoot us an email at:</p>
+            <a href="mailto:royalkrriahna@gmail.com" class="email-link">royalkrriahna@gmail.com</a>
+        </div>
+
+        <p style="font-size:13px; color:#777; text-align: center; margin-top: 30px;">
+            We aim to respond to all inquiries within 24-48 hours.<br>
+            Please note: We do not sell products directly. For order issues, please contact Amazon Support.
+        </p>
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="about.html">About Us</a>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="contact.html">Contact Us</a>
+        </div>
+        <div style="margin-top:10px; font-size:12px; color:#999;">&copy; GadgetsPlus. Associated with Amazon.</div>
+    </footer>
+
+</body>
+</html>

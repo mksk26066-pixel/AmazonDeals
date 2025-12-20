@@ -8,7 +8,8 @@ const products = [
     "https://amzn.to/4qq0Tlf",
     "https://amzn.to/4pXMDQH",
     "https://amzn.to/3KVZjs8",
-    "https://amzn.to/3YBlKWy,
+    "https://amzn.to/3YBlKWy",
     "https://amzn.to/44BTPcC",
+    "https://amzn.to/4pKbPKh",
     // Aur links yahan comma (,) laga ke add karte jao
 ];

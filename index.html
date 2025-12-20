@@ -3,63 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>GadgetsPlus - Best Deals</title>
+    <title>GadgetsPlus - Best Deals Online</title>
     <style>
         :root {
-            --primary: #232f3e;
-            --secondary: #ff9900;
-            --bg-color: #f3f3f3;
+            --primary: #131921; /* Amazon Darker Blue */
+            --secondary: #febd69; /* Amazon Yellow */
+            --accent: #232f3e; /* Lighter Blue */
+            --bg-color: #eaeded;
             --white: #ffffff;
-            --text-dark: #111;
+            --text-dark: #0F1111;
             --text-gray: #565959;
             --price-color: #B12704;
         }
 
         body { 
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; 
+            font-family: 'Amazon Ember', Arial, sans-serif; 
             background: var(--bg-color); 
             margin: 0; 
-            padding-bottom: 40px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* --- HEADER --- */
+        /* --- HEADER & SEARCH --- */
         header {
             background: var(--primary);
             color: white;
-            padding: 15px 20px;
+            padding: 10px 15px;
             position: sticky;
             top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            text-decoration: none;
+            color: white;
             display: flex;
             align-items: center;
-            justify-content: center;
         }
+        
+        .logo span { color: var(--secondary); font-style: italic; }
 
-        header h1 {
-            margin: 0;
+        .search-icon {
             font-size: 20px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            transition: background 0.3s;
+        }
+        .search-icon:hover { background: rgba(255,255,255,0.1); }
+
+        /* Search Bar (Hidden by default) */
+        .search-bar-container {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            max-width: 1200px;
+            margin: auto;
         }
 
-        header span { color: var(--secondary); }
+        .search-bar-container.active {
+            max-height: 60px;
+            margin-top: 10px;
+        }
 
-        /* --- GRID CONTAINER --- */
+        .search-input {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 4px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        /* --- MAIN CONTENT --- */
+        .main-content {
+            flex: 1; /* Pushes footer down */
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-bottom: 30px;
+        }
+
         .container { 
             display: grid; 
-            grid-template-columns: repeat(2, 1fr); /* Mobile: 2 Columns */
-            gap: 10px; 
-            padding: 10px;
-            max-width: 1200px; 
-            margin: auto; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 12px; 
+            padding: 12px;
         }
 
-        /* Desktop View: 4 Columns */
         @media (min-width: 768px) {
             .container {
-                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
                 gap: 20px;
                 padding: 20px;
             }
@@ -68,31 +117,28 @@
         /* --- PRODUCT CARD --- */
         .card { 
             background: var(--white); 
-            border-radius: 8px; 
-            padding: 10px; 
-            box-shadow: 0 1px 3px rgba(0,0,0,0.12); 
+            border-radius: 0px; /* Sharp edges like Amazon */
+            padding: 12px; 
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: transform 0.2s, box-shadow 0.2s;
             position: relative;
-            overflow: hidden;
             height: 100%;
+            border: 1px solid #ddd; /* Subtle border */
         }
-
-        .card:active { transform: scale(0.98); }
+        
         @media (min-width: 768px) {
-            .card:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+            .card { border-radius: 8px; border: none; }
+            .card:hover { box-shadow: 0 0 10px rgba(0,0,0,0.15); }
         }
 
-        /* Image Area */
         .img-container {
             width: 100%;
-            height: 160px; /* Fixed Height */
+            height: 180px; 
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             padding: 5px;
             box-sizing: border-box;
         }
@@ -104,14 +150,13 @@
             mix-blend-mode: multiply;
         }
 
-        /* Text Content */
         .details { text-align: left; }
 
         .title { 
-            font-size: 14px; 
+            font-size: 15px; 
             color: var(--text-dark); 
-            line-height: 1.3;
-            height: 36px; /* Limit to 2 lines */
+            line-height: 1.4;
+            height: 42px; 
             overflow: hidden; 
             display: -webkit-box;
             -webkit-line-clamp: 2;
@@ -119,80 +164,175 @@
             margin-bottom: 6px;
         }
 
-        .rating {
-            font-size: 12px;
-            color: var(--secondary);
-            margin-bottom: 4px;
-        }
+        .rating { color: #FFA41C; font-size: 13px; margin-bottom: 5px; }
 
-        .price { 
-            font-size: 18px; 
-            color: var(--price-color); 
-            font-weight: 700; 
-        }
-        
-        .price small {
-            font-size: 11px;
-            color: var(--text-gray);
-            font-weight: 400;
-        }
+        .price-block { display: flex; align-items: baseline; gap: 5px; }
+        .currency { font-size: 14px; position: relative; top: -5px; }
+        .price-val { font-size: 21px; font-weight: 500; color: var(--text-dark); }
+        .mrp { font-size: 12px; color: var(--text-gray); text-decoration: line-through; }
 
-        /* Button */
         .btn { 
             background: #FFD814;
-            background: linear-gradient(to bottom, #FFD814, #F7CA00);
-            color: #111; 
+            color: #0F1111; 
             text-decoration: none; 
-            padding: 8px; 
+            padding: 10px; 
             border-radius: 20px; 
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 500;
             text-align: center;
-            margin-top: 10px;
-            border: 1px solid #FCD200;
+            margin-top: 12px;
             box-shadow: 0 2px 5px rgba(213, 217, 217, 0.5);
             display: block;
+            border: none;
+            cursor: pointer;
         }
-
         .btn:hover { background: #F7CA00; }
 
-        /* Skeleton Loader */
-        .skeleton { background: #e0e0e0; height: 280px; border-radius: 8px; animation: pulse 1.5s infinite; }
+        /* --- FOOTER --- */
+        footer {
+            background: var(--accent);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        .footer-links {
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .footer-links a:hover { text-decoration: underline; }
+
+        .copyright { font-size: 12px; color: #999; }
+        
+        .back-to-top {
+            background: #37475a;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 13px;
+            cursor: pointer;
+        }
+        .back-to-top:hover { background: #485769; }
+
+        /* Loader & Messages */
+        .skeleton { background: #e0e0e0; height: 320px; border-radius: 4px; animation: pulse 1.5s infinite; }
         @keyframes pulse { 0% { opacity: 0.6; } 50% { opacity: 1; } 100% { opacity: 0.6; } }
+
+        .no-results {
+            text-align: center;
+            grid-column: 1 / -1;
+            padding: 40px;
+            color: var(--text-gray);
+            font-size: 18px;
+            display: none;
+        }
 
     </style>
 </head>
 <body>
 
+    <!-- Header -->
     <header>
-        <h1>Gadgets<span>Plus</span></h1>
+        <div class="nav-wrapper">
+            <a href="#" class="logo">Gadgets<span>Plus</span></a>
+            <div class="search-icon" onclick="toggleSearch()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </div>
+        </div>
+        <div class="search-bar-container" id="searchContainer">
+            <input type="text" class="search-input" id="searchInput" placeholder="Search for products...">
+        </div>
     </header>
 
-    <div class="container" id="product-list">
-        <!-- Products will load here -->
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container" id="product-list">
+            <!-- Products or Skeletons go here -->
+        </div>
+        <div id="noResults" class="no-results">
+            No products found matching your search.
+        </div>
     </div>
 
+    <!-- Back to Top -->
+    <div class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        Back to top
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="#">Conditions of Use</a>
+            <a href="#">Privacy Notice</a>
+            <a href="#">Help</a>
+            <a href="#">Telegram Channel</a>
+        </div>
+        <div class="copyright">
+            &copy; GadgetsPlus. Associated With Amazon.<br>
+            Made with ❤️ for You.
+        </div>
+    </footer>
+
     <!-- LINKS SCRIPT -->
-    <script src="links.js"></script> 
-    <!-- Agar link.js root me nahi hai, to niche script tag me paste kar dena -->
+    <script src="links.js"></script>
 
     <script>
-        // CONFIG
-        const API_URL = "/api/check"; 
-        // const AFFILIATE_TAG = "apnatag-21"; // link.js me hoga ye
-
+        const API_URL = "/api/check";
         const container = document.getElementById('product-list');
+        const searchInput = document.getElementById('searchInput');
+        const noResults = document.getElementById('noResults');
+        let loadedCards = []; // Store references to cards for searching
 
+        // Toggle Search Bar
+        function toggleSearch() {
+            const el = document.getElementById('searchContainer');
+            el.classList.toggle('active');
+            if(el.classList.contains('active')) {
+                document.getElementById('searchInput').focus();
+            }
+        }
+
+        // Search Logic
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            let visibleCount = 0;
+
+            loadedCards.forEach(cardObj => {
+                const text = cardObj.title.toLowerCase();
+                const element = cardObj.element;
+                
+                if (text.includes(query)) {
+                    element.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    element.style.display = 'none';
+                }
+            });
+
+            noResults.style.display = (visibleCount === 0 && loadedCards.length > 0) ? 'block' : 'none';
+        });
+
+        // Initialize
         async function initApp() {
-            // 1. Show Skeletons
             if (typeof products !== 'undefined') {
+                // Show Skeletons
                 products.forEach(() => {
                     const skel = document.createElement('div');
                     skel.className = 'skeleton';
                     container.appendChild(skel);
                 });
 
-                // 2. Fetch Data
+                // Fetch Data
                 const requests = products.map(async (link) => {
                     try {
                         const res = await fetch(`${API_URL}?url=${encodeURIComponent(link)}&tag=${AFFILIATE_TAG}`);
@@ -203,26 +343,33 @@
                 });
 
                 const data = await Promise.all(requests);
-
-                // 3. Render
                 container.innerHTML = ""; // Clear skeletons
 
                 data.forEach(item => {
                     if (item && !item.error) {
-                        renderCard(item);
+                        const card = createCard(item);
+                        container.appendChild(card);
+                        // Save for search
+                        loadedCards.push({
+                            title: item.title,
+                            element: card
+                        });
                     }
                 });
-            } else {
-                container.innerHTML = "<h3 style='text-align:center; width:100%; padding:20px;'>No products found in links.js</h3>";
+
+                if (loadedCards.length === 0) {
+                    container.innerHTML = "<h3 style='text-align:center; width:100%;'>No active deals found.</h3>";
+                }
             }
         }
 
-        function renderCard(item) {
+        function createCard(item) {
             const card = document.createElement('div');
             card.className = 'card';
             
-            // Random rating stars for effect (Optional)
-            const stars = "★★★★☆"; 
+            // Clean price for display
+            let displayPrice = item.price.replace(/[^\d.,]/g, ''); 
+            if(!displayPrice) displayPrice = "Check";
 
             card.innerHTML = `
                 <div class="img-container">
@@ -230,20 +377,18 @@
                 </div>
                 <div class="details">
                     <div class="title">${item.title}</div>
-                    <div class="rating">${stars}</div>
-                    <div class="price">
-                        <small>Deal Price:</small><br>
-                        ${item.price}
+                    <div class="rating">★★★★☆ <span style="color:#007185; margin-left:5px;">3,204</span></div>
+                    <div class="price-block">
+                        <span style="font-size:12px; position:relative; top:-5px;">₹</span>
+                        <span class="price-val">${displayPrice}</span>
                     </div>
                 </div>
-                <a href="${item.link}" target="_blank" class="btn">View Deal</a>
+                <a href="${item.link}" target="_blank" class="btn">Buy Now</a>
             `;
-            container.appendChild(card);
+            return card;
         }
 
-        // Start
         window.onload = initApp;
     </script>
-
 </body>
 </html>

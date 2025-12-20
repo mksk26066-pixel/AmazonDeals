@@ -6,9 +6,9 @@
     <title>GadgetsPlus - Best Deals Online</title>
     <style>
         :root {
-            --primary: #131921; /* Amazon Darker Blue */
-            --secondary: #febd69; /* Amazon Yellow */
-            --accent: #232f3e; /* Lighter Blue */
+            --primary: #131921;
+            --secondary: #febd69;
+            --accent: #232f3e;
             --bg-color: #eaeded;
             --white: #ffffff;
             --text-dark: #0F1111;
@@ -58,15 +58,19 @@
         .logo span { color: var(--secondary); font-style: italic; }
 
         .search-icon {
-            font-size: 20px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
-            padding: 8px;
-            border-radius: 50%;
-            transition: background 0.3s;
+            border-radius: 5px;
+            transition: background 0.2s;
         }
         .search-icon:hover { background: rgba(255,255,255,0.1); }
+        .search-icon svg { width: 22px; height: 22px; stroke: white; }
 
-        /* Search Bar (Hidden by default) */
+        /* Search Bar */
         .search-bar-container {
             max-height: 0;
             overflow: hidden;
@@ -92,7 +96,7 @@
 
         /* --- MAIN CONTENT --- */
         .main-content {
-            flex: 1; /* Pushes footer down */
+            flex: 1;
             width: 100%;
             max-width: 1200px;
             margin: 0 auto;
@@ -117,14 +121,14 @@
         /* --- PRODUCT CARD --- */
         .card { 
             background: var(--white); 
-            border-radius: 0px; /* Sharp edges like Amazon */
+            border-radius: 0px; 
             padding: 12px; 
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             position: relative;
             height: 100%;
-            border: 1px solid #ddd; /* Subtle border */
+            border: 1px solid #e0e0e0;
         }
         
         @media (min-width: 768px) {
@@ -161,15 +165,25 @@
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
 
-        .rating { color: #FFA41C; font-size: 13px; margin-bottom: 5px; }
-
-        .price-block { display: flex; align-items: baseline; gap: 5px; }
+        /* Price Styling */
+        .price-block { display: flex; align-items: baseline; gap: 2px; }
         .currency { font-size: 14px; position: relative; top: -5px; }
-        .price-val { font-size: 21px; font-weight: 500; color: var(--text-dark); }
-        .mrp { font-size: 12px; color: var(--text-gray); text-decoration: line-through; }
+        .price-val { font-size: 24px; font-weight: 500; color: var(--text-dark); }
+        
+        /* Deal Badge (Optional - looks professional) */
+        .deal-badge {
+            background: #CC0C39;
+            color: white;
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 2px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 5px;
+        }
 
         .btn { 
             background: #FFD814;
@@ -180,7 +194,7 @@
             font-size: 14px;
             font-weight: 500;
             text-align: center;
-            margin-top: 12px;
+            margin-top: 15px;
             box-shadow: 0 2px 5px rgba(213, 217, 217, 0.5);
             display: block;
             border: none;
@@ -188,43 +202,48 @@
         }
         .btn:hover { background: #F7CA00; }
 
-        /* --- FOOTER --- */
+        /* --- FOOTER & SOCIAL ICONS --- */
         footer {
             background: var(--accent);
             color: white;
-            padding: 30px 20px;
+            padding-top: 0;
             text-align: center;
             margin-top: auto;
         }
 
-        .footer-links {
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .footer-links a {
-            color: #ddd;
-            text-decoration: none;
-            font-size: 14px;
-        }
-        .footer-links a:hover { text-decoration: underline; }
-
-        .copyright { font-size: 12px; color: #999; }
-        
         .back-to-top {
             background: #37475a;
             color: white;
-            text-align: center;
             padding: 15px;
             font-size: 13px;
             cursor: pointer;
+            margin-bottom: 20px;
         }
         .back-to-top:hover { background: #485769; }
 
-        /* Loader & Messages */
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+
+        .social-icon {
+            width: 24px;
+            height: 24px;
+            fill: #DDDDDD; /* Icon Color */
+            transition: transform 0.2s, fill 0.2s;
+        }
+
+        .social-icon:hover {
+            transform: scale(1.1);
+            fill: var(--secondary);
+        }
+
+        .copyright { font-size: 12px; color: #999; padding-bottom: 20px; }
+
+        /* Loader */
         .skeleton { background: #e0e0e0; height: 320px; border-radius: 4px; animation: pulse 1.5s infinite; }
         @keyframes pulse { 0% { opacity: 0.6; } 50% { opacity: 1; } 100% { opacity: 0.6; } }
 
@@ -250,36 +269,45 @@
             </div>
         </div>
         <div class="search-bar-container" id="searchContainer">
-            <input type="text" class="search-input" id="searchInput" placeholder="Search for products...">
+            <input type="text" class="search-input" id="searchInput" placeholder="Search products...">
         </div>
     </header>
 
     <!-- Main Content -->
     <div class="main-content">
         <div class="container" id="product-list">
-            <!-- Products or Skeletons go here -->
+            <!-- Products Load Here -->
         </div>
         <div id="noResults" class="no-results">
             No products found matching your search.
         </div>
     </div>
 
-    <!-- Back to Top -->
-    <div class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-        Back to top
-    </div>
-
     <!-- Footer -->
     <footer>
-        <div class="footer-links">
-            <a href="#">Conditions of Use</a>
-            <a href="#">Privacy Notice</a>
-            <a href="#">Help</a>
-            <a href="#">Telegram Channel</a>
+        <div class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+            Back to top
         </div>
+
+        <div class="social-icons">
+            <!-- Telegram Icon -->
+            <a href="https://t.me/YOUR_TELEGRAM_LINK" target="_blank" title="Telegram">
+                <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+            </a>
+
+            <!-- WhatsApp Icon -->
+            <a href="https://wa.me/YOUR_NUMBER" target="_blank" title="WhatsApp">
+                <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.637 3.891 1.685 5.616l-1.114 4.068 3.918-1.383z"/></svg>
+            </a>
+
+            <!-- Instagram Icon -->
+            <a href="#" target="_blank" title="Instagram">
+                <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+        </div>
+
         <div class="copyright">
-            &copy; GadgetsPlus. Associated With Amazon.<br>
-            Made with ❤️ for You.
+            &copy; GadgetsPlus. Associate With Amazon.
         </div>
     </footer>
 
@@ -291,15 +319,13 @@
         const container = document.getElementById('product-list');
         const searchInput = document.getElementById('searchInput');
         const noResults = document.getElementById('noResults');
-        let loadedCards = []; // Store references to cards for searching
+        let loadedCards = [];
 
-        // Toggle Search Bar
+        // Toggle Search
         function toggleSearch() {
             const el = document.getElementById('searchContainer');
             el.classList.toggle('active');
-            if(el.classList.contains('active')) {
-                document.getElementById('searchInput').focus();
-            }
+            if(el.classList.contains('active')) document.getElementById('searchInput').focus();
         }
 
         // Search Logic
@@ -309,23 +335,20 @@
 
             loadedCards.forEach(cardObj => {
                 const text = cardObj.title.toLowerCase();
-                const element = cardObj.element;
-                
                 if (text.includes(query)) {
-                    element.style.display = 'flex';
+                    cardObj.element.style.display = 'flex';
                     visibleCount++;
                 } else {
-                    element.style.display = 'none';
+                    cardObj.element.style.display = 'none';
                 }
             });
-
             noResults.style.display = (visibleCount === 0 && loadedCards.length > 0) ? 'block' : 'none';
         });
 
         // Initialize
         async function initApp() {
             if (typeof products !== 'undefined') {
-                // Show Skeletons
+                // Skeletons
                 products.forEach(() => {
                     const skel = document.createElement('div');
                     skel.className = 'skeleton';
@@ -349,17 +372,11 @@
                     if (item && !item.error) {
                         const card = createCard(item);
                         container.appendChild(card);
-                        // Save for search
-                        loadedCards.push({
-                            title: item.title,
-                            element: card
-                        });
+                        loadedCards.push({ title: item.title, element: card });
                     }
                 });
 
-                if (loadedCards.length === 0) {
-                    container.innerHTML = "<h3 style='text-align:center; width:100%;'>No active deals found.</h3>";
-                }
+                if (loadedCards.length === 0) container.innerHTML = "<h3 style='text-align:center; width:100%;'>No active deals.</h3>";
             }
         }
 
@@ -367,23 +384,22 @@
             const card = document.createElement('div');
             card.className = 'card';
             
-            // Clean price for display
             let displayPrice = item.price.replace(/[^\d.,]/g, ''); 
             if(!displayPrice) displayPrice = "Check";
 
             card.innerHTML = `
+                <div class="deal-badge">Limited Deal</div>
                 <div class="img-container">
                     <img src="${item.image}" alt="Product" loading="lazy">
                 </div>
                 <div class="details">
                     <div class="title">${item.title}</div>
-                    <div class="rating">★★★★☆ <span style="color:#007185; margin-left:5px;">3,204</span></div>
                     <div class="price-block">
                         <span style="font-size:12px; position:relative; top:-5px;">₹</span>
                         <span class="price-val">${displayPrice}</span>
                     </div>
                 </div>
-                <a href="${item.link}" target="_blank" class="btn">Buy Now</a>
+                <a href="${item.link}" target="_blank" class="btn">Check Details</a>
             `;
             return card;
         }

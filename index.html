@@ -213,8 +213,8 @@
 
             const requests = batchLinks.map(async (link) => {
                 try {
-                    // VERSION 8 CACHE (Fresh Data)
-                    const cacheKey = "deal_v8_" + link;
+                    // VERSION 9 (Fresh Data Force)
+                    const cacheKey = "deal_v9_" + link;
                     const cached = localStorage.getItem(cacheKey);
                     if (cached) {
                         const data = JSON.parse(cached);
@@ -237,7 +237,6 @@
             skeletonElements.forEach(el => el.remove());
 
             data.forEach(item => {
-                // Show EVERYTHING. No Filter.
                 if (item) {
                     const card = createCard(item);
                     container.appendChild(card);
@@ -250,11 +249,15 @@
             const card = document.createElement('div');
             card.className = 'card';
             let displayPrice = item.price.replace(/[^\d.,]/g, ''); 
-            if(!displayPrice) displayPrice = "Check";
+            if(!displayPrice || displayPrice.trim() === '') displayPrice = "Check";
 
             let badgesHtml = '';
-            if(item.coupon) badgesHtml += `<div class="coupon-badge">${item.coupon}</div>`;
-            if(item.bank_offer) badgesHtml += `<div class="bank-offer">Bank Offers</div>`;
+            if(item.coupon && item.coupon.includes("Apply")) {
+                badgesHtml += `<div class="coupon-badge">${item.coupon}</div>`;
+            }
+            if(item.bank_offer) {
+                badgesHtml += `<div class="bank-offer">Bank Offers</div>`;
+            }
 
             let priceHtml = '';
             if(item.mrp && item.discount) {
@@ -267,17 +270,10 @@
                 priceHtml = `<span class="price-val">₹${displayPrice}</span>`;
             }
 
-            // FALLBACK IMAGE LOGIC (Imp)
-            let imgUrl = item.image;
-            if(!imgUrl || imgUrl.includes("No Image") || imgUrl.includes("placehold")) {
-                // Use a nice Amazon Logo instead of blank
-                imgUrl = "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg"; 
-            }
-
             card.innerHTML = `
                 <div class="badges-container">${badgesHtml}</div>
                 <div class="img-container">
-                    <img src="${imgUrl}" alt="Product" loading="lazy" style="${imgUrl.includes('Amazon_logo') ? 'padding:20px;' : ''}">
+                    <img src="${item.image}" alt="Product" loading="lazy">
                 </div>
                 <div class="details">
                     <div class="title">${item.title}</div>

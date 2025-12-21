@@ -180,7 +180,7 @@
             flex-direction: column;
             gap: 3px;
             margin-bottom: 6px;
-            min-height: 18px; /* Alignment fix */
+            min-height: 18px; 
         }
 
         .coupon-badge {
@@ -196,7 +196,7 @@
 
         .bank-offer {
             font-size: 10px;
-            color: #007185; /* Amazon Link Blue */
+            color: #007185; 
             font-weight: 500;
         }
 
@@ -398,6 +398,7 @@
             skeletonElements.forEach(el => el.remove());
 
             data.forEach(item => {
+                // FILTER REMOVED - All cards will be shown
                 if (item && !item.error) {
                     const card = createCard(item);
                     container.appendChild(card);
@@ -412,8 +413,7 @@
             let displayPrice = item.price.replace(/[^\d.,]/g, ''); 
             if(!displayPrice) displayPrice = "Check";
 
-            // --- NO DEFAULT BADGES ---
-            // Only show if available
+            // ONLY Real Badges (No Default Limited Deal)
             let badgesHtml = '';
             if(item.coupon) {
                 badgesHtml += `<div class="coupon-badge">${item.coupon}</div>`;
@@ -421,7 +421,8 @@
             if(item.bank_offer) {
                 badgesHtml += `<div class="bank-offer">Bank Offers</div>`;
             }
-            
+            // Limited Deal Removed
+
             // MRP Logic
             let priceHtml = '';
             if(item.mrp && item.discount) {
